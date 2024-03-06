@@ -60,8 +60,8 @@ document.addEventListener('keydown', (event) => {
         label = key_map[event.key]
         startTimes[label] = new Date();
         const button = find_button(label);
-        output.textContent = `Noting ${label}...`;
-        button.classList.add('btn-primary');
+        button.classList.remove('btn-secondary');
+        button.classList.add('btn-success');
     }
 });
 
@@ -69,41 +69,27 @@ document.addEventListener('keyup', (event) => {
     if (key_map[event.key]){
         label = key_map[event.key]
         const endTime = new Date();
-        output.textContent = `Noted: ${label} from ${startTimes[label]} to ${endTime}`;
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
-        notes.push({ note: label, startTime: startTimes[label], endTime });
+        notes.push({ session: sessionId, note: label, startTime: startTimes[label], endTime });
         localStorage.setItem('notes', JSON.stringify(notes));
         delete startTimes[label]; // Remove the start time for the key
         const button = find_button(label);
-        button.classList.remove('btn-primary');
+        button.classList.remove('btn-success');
+        button.classList.add('btn-secondary');
     }
 });
 
 
 
-function add_label(button, label) {
-    // Add a label to the list of notes
-    console.log(label)
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    notes.push({ note: label, time: new Date() });
-    localStorage.setItem('notes', JSON.stringify(notes));
-
-    // Flash the button green
-    button.classList.add('btn-success');
-    setTimeout(() => {
-        button.classList.remove('btn-success');
-    }, 100);
-}
-
-
 function startSession(labels) {
     // Start a session with the given labels
-    let sessionId = Number(localStorage.getItem('sessionId')) || 0;
+    sessionId = Number(localStorage.getItem('sessionId')) || 0;
     sessionId++;
     localStorage.setItem('sessionId', sessionId.toString());
 
+    console.log(sessionId); // Log the sessionId when a session is started
+
     sessionLabels = labels;
-    output.textContent = `Session started with labels: ${sessionLabels.join(', ')}`;
 
     // map labels to middle row buttons and print instructions
     keys = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
@@ -113,12 +99,12 @@ function startSession(labels) {
         label_map[sessionLabels[i]] = keys[i]
         key_map[keys[i]] = sessionLabels[i]
     }
-    output.innerHTML = `Press the following keys to note the following labels: <br>`
 
     // Remove any previous noting buttons
     const buttons = document.querySelectorAll('.label');
     buttons.forEach(button => button.remove());
     
+    label_container = document.getElementById('label_container')
     for (const label of sessionLabels) {
         const button = document.createElement('button');
         button.classList = 'btn btn-secondary mx-1 label';
@@ -126,10 +112,11 @@ function startSession(labels) {
         button.addEventListener('click', () => {
             add_label(button, label)
         });
-        output.after(button);
+        label_container.appendChild(button);
     }
 
     // Show the timer
+    stopTimer();
     document.getElementById('meditation-timer-form').style.display = 'block';
 }
 
@@ -138,7 +125,7 @@ function download_notes_csv() {
     // Extract notes to a CSV file
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const csv = notes.map(note => {
-        return `${note.note},${note.startTime},${note.endTime}`;
+        return `${note.session},${note.note},${note.startTime},${note.endTime}`;
     }).join('\n');
     
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -180,11 +167,16 @@ function startTimer(duration, display) {
         if (--timer < 0) {
             timer = duration;
             clearInterval(intervalId);
-            alert('Meditation session has ended.');
+            const audio = new Audio('bell/bell-08.wav');
+            audio.play();
         }
     }, 1000);
 }
 
+function stopTimer() {
+    const duration = document.getElementById('meditation-duration').value;
+    timer = duration;
+}
 
 
 
