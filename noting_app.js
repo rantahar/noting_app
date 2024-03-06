@@ -186,18 +186,6 @@ function startTimer(duration, display) {
 }
 
 
-// Autosave the session data
-document.getElementById('set-auto-save').addEventListener('click', function() {
-    const interval = prompt('Enter the auto-save interval in minutes:');
-    localStorage.setItem('autoSaveInterval', interval);
-    startAutoSave();
-});
-
-function startAutoSave() {
-    const interval = local
-    Storage.getItem('autoSaveInterval');
-    setInterval(download_notes_csv, interval * 60 * 1000);
-}
 
 
 
