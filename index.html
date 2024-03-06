@@ -11,26 +11,48 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Noting App</h1>
-    <form id="custom-session-form">
-        <label for="custom-session-labels">Enter custom session labels (comma-separated):</label>
-        <input type="text" id="custom-session-labels">
-        <button type="submit" class="btn btn-primary mx-1">Start custom session</button>
-    </form>
-    <div id="output"></div>
+    <div class="container">
+        <div class="col-lg-8 offset-lg-3">
+            <div class="text-center">
+                <h1>Noting App</h1>
+            </div>
 
-    <div id="label_container"></div>
+            <div class="row mt-4">
+                <form id="custom-session-form">
+                    <label for="custom-session-labels">Enter custom session labels (comma-separated):</label>
+                    <br>
+                    <input type="text" id="custom-session-labels">
+                    <button type="submit" class="btn btn-primary mx-1 my-2">Start custom session</button>
+                </form>
+            </div>
+            <div class="row mt-1">
+                <div id="session_dropdown_container"></div>
+            </div>
+            <div class="row mt-1">
+                <div id="output"></div>
+            </div>
 
-    <form id="meditation-timer-form" style="display: none;">
-        <label for="meditation-duration">Enter meditation duration (minutes):</label>
-        <input type="number" id="meditation-duration" min="1" max="60" value="20">
-        <button type="button" id="start-meditation" class="btn btn-primary mx-1">Start Meditation</button>
-    </form>
-    <button type="button" id="end-meditation" class="btn btn-danger mx-1" style="display: none;">End Meditation</button>
-    <div id="timer-display"></div>
+            <div class="row mt-4">
+                <div id="label_container"></div>
+            </div>
 
-    <div id="download_button_container"></div>
+            <div class="row mt-4">
+                <form id="meditation-timer-form" style="display: none;">
+                    <label for="meditation-duration">Enter meditation duration (minutes):</label>
+                    <input type="number" id="meditation-duration" min="1" max="60" value="20">
+                    <button type="button" id="start-meditation" class="btn btn-primary mx-1">Start Meditation</button>
+                </form>
+                <button type="button" id="end-meditation" class="btn btn-danger mx-1" style="display: none;">End Meditation</button>
+                <div id="timer-display"></div>
+            </div>
+
+            <div class="row mt-4">
+                <div id="download_button_container"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="noting_app.js"></script>
+
 </body>
 </html>

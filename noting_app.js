@@ -13,6 +13,7 @@ const sessionTypes = {
 };
 
 
+session_dropdown_container = document.getElementById('session_dropdown_container')
 const select = document.createElement('select');
 const option = document.createElement('option');
 option.textContent = "select a predefined session type";
@@ -23,7 +24,7 @@ for (const sessionType in sessionTypes) {
     option.value = sessionType;
     select.appendChild(option);
 }
-output.before(select);
+session_dropdown_container.appendChild(select);
 
 select.addEventListener('change', () => {
     sessionLabels = sessionTypes[select.value];
