@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<!--
+ A simple app for see-hear-feel noting meditation. Basically, map keys to different labels
+   and provide simple visual feedback. Tracks labels begin and end times and saves to a csv.
+-->
+
+<html>
+<head>
+    <title>Noting App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Noting App</h1>
+    <form id="custom-session-form">
+        <label for="custom-session-labels">Enter custom session labels (comma-separated):</label>
+        <input type="text" id="custom-session-labels">
+        <button type="submit" class="btn btn-primary mx-1">Start custom session</button>
+    </form>
+    <div id="output"></div>
+
+    <form id="meditation-timer-form" style="display: none;">
+        <label for="meditation-duration">Enter meditation duration (minutes):</label>
+        <input type="number" id="meditation-duration" min="1" max="60" value="20">
+        <button type="button" id="start-meditation" class="btn btn-primary mx-1">Start Meditation</button>
+    </form>
+    <button type="button" id="end-meditation" class="btn btn-danger mx-1" style="display: none;">End Meditation</button>
+    <div id="timer-display"></div>
+
+    <div id="download_button_container"></div>
+
+    <script src="noting_app.js"></script>
+</body>
+</html>
