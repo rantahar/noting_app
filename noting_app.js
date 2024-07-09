@@ -164,7 +164,6 @@ download_button_container.appendChild(downloadButton);
 
 
 // Request wake lock to try to keep the screen on
-
 let wakeLock = null;
 
 const requestWakeLock = async () => {
