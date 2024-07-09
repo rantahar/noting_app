@@ -108,6 +108,14 @@ function startSession(labels) {
         button.addEventListener('mouseup', () => {
             end_label(label)
         });
+        button.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // Prevent the mouse event from being fired
+            start_label(label);
+        });
+        button.addEventListener('touchend', function(e) {
+            e.preventDefault(); // Prevent the mouse event from being fired
+            end_label(label);
+        });
         label_container.appendChild(button);
         label_to_button[label] = button;
     }
