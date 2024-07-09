@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <!--
- A simple app for see-hear-feel noting meditation. Basically, map keys to different labels
-   and provide simple visual feedback. Tracks labels begin and end times and saves to a csv.
+  A simple app for recording noting mediation in daily life. Pressing the button records a note and
+  increments a counter. The notes are saved in a session object and can be downloaded as a JSON file.
 -->
 
 <html>
@@ -12,47 +12,39 @@
 </head>
 <body>
     <div class="container">
-        <div class="col-lg-8 offset-lg-3">
-            <div class="text-center">
-                <h1>Noting App</h1>
+        <div class="row justify-content-center">
+            <h1>Noting App</h1>
+        </div>
+        <div class="row justify-content-center">
+            Notes today:&nbsp; <div id="labelCount"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                 <div id="label_container" class="d-flex flex-wrap justify-content-around">
+                </div>
             </div>
-
-            <div class="row mt-4">
-                <form id="custom-session-form">
-                    <label for="custom-session-labels">Enter custom session labels (comma-separated):</label>
-                    <br>
-                    <input type="text" id="custom-session-labels">
-                    <button type="submit" class="btn btn-primary mx-1 my-2">Start custom session</button>
-                </form>
-            </div>
-            <div class="row mt-1">
-                <div id="session_dropdown_container"></div>
-            </div>
-            <div class="row mt-1">
-                <div id="output"></div>
-            </div>
-
-            <div class="row mt-4">
-                <div id="label_container"></div>
-            </div>
-
-            <div class="row mt-4">
-                <form id="meditation-timer-form" style="display: none;">
-                    <label for="meditation-duration">Enter meditation duration (minutes):</label>
-                    <input type="number" id="meditation-duration" min="1" max="60" value="20">
-                    <button type="button" id="start-meditation" class="btn btn-primary mx-1">Start Meditation</button>
-                </form>
-                <button type="button" id="end-meditation" class="btn btn-danger mx-1" style="display: none;">End Meditation</button>
-                <div id="timer-display"></div>
-            </div>
-
-            <div class="row mt-4">
-                <div id="download_button_container"></div>
-            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="download_button_container"></div>
         </div>
     </div>
 
     <script src="noting_app.js"></script>
+
+
+<style>
+    .square-btn {
+      width: 90%;
+      position: relative;
+      font-size: 5vw;
+    }
+    
+    .square-btn:before {
+      content: "";
+      display: block;
+      padding-top: 100%; /* equal to the width for a square aspect ratio */
+    }
+</style>
 
 </body>
 </html>
