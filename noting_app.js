@@ -181,3 +181,14 @@ const requestWakeLock = async () => {
 requestWakeLock();
 
 
+// On mobile, always use a full sized label interface
+window.onload = function() {
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    var column = document.getElementById('label_col');
+
+    if (isMobile) {
+        console.log('Mobile detected');
+        column.classList.remove('col-md-8');
+        column.classList.remove('col-lg-6');
+    }
+}
