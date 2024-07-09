@@ -43,7 +43,14 @@ function add_label(label) {
 }
 
 
-// Listen to the keyboard for labels
+// Listeners for starting and ending labels
+function start_label(label) {
+    startTimes[label] = new Date();
+    const button = label_to_button[label];
+    button.classList.remove('btn-secondary');
+    button.classList.add('btn-success');
+}
+
 document.addEventListener('keydown', (event) => {
     label = key_to_label[event.key]
     if(!label){
@@ -53,24 +60,23 @@ document.addEventListener('keydown', (event) => {
     if (startTimes[label]){
         return 
     }
-    startTimes[label] = new Date();
-    const button = label_to_button[label];
-    button.classList.remove('btn-secondary');
-    button.classList.add('btn-success');
+    start_label(label)
 });
+
+function end_label(label) {
+    add_label(label)
+    delete startTimes[label];
+    const button = label_to_button[label];
+    button.classList.remove('btn-success');
+    button.classList.add('btn-secondary');
+}
 
 document.addEventListener('keyup', (event) => {
     label = key_to_label[event.key]
     if(!label){
         return
     }
-
-    add_label(label)
-    
-    delete startTimes[label];
-    const button = label_to_button[label];
-    button.classList.remove('btn-success');
-    button.classList.add('btn-secondary');
+    end_label(label)
 });
 
 
@@ -96,8 +102,11 @@ function startSession(labels) {
         const button = document.createElement('button');
         button.classList = 'btn btn-secondary m-2 flex-fill square-btn d-flex align-items-center justify-content-center';
         button.textContent = label + ' (' + label_to_key[label] + ')';
-        button.addEventListener('click', () => {
-            add_label(label)
+        button.addEventListener('mousedown', () => {
+            start_label(label)
+        });
+        button.addEventListener('mouseup', () => {
+            end_label(label)
         });
         label_container.appendChild(button);
         label_to_button[label] = button;
