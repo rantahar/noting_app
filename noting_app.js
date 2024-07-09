@@ -116,6 +116,13 @@ function startSession(labels) {
             e.preventDefault(); // Prevent the mouse event from being fired
             end_label(label);
         });
+        button.addEventListener('touchmove', function(e) {
+            e.preventDefault(); // Prevent any event while on the button
+        });
+        button.addEventListener('touchcancel', function(e) {
+            e.preventDefault(); // Prevent the mouse event from being fired
+            end_label(label);
+        });
         label_container.appendChild(button);
         label_to_button[label] = button;
     }
