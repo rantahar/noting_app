@@ -163,4 +163,22 @@ download_button_container.appendChild(downloadButton);
 
 
 
+// Request wake lock to try to keep the screen on
+
+let wakeLock = null;
+
+const requestWakeLock = async () => {
+    try {
+        wakeLock = await navigator.wakeLock.request('screen');
+        console.log("Screen wake lock acquired");
+        wakeLock.addEventListener('release', () => {
+            console.log('Screen wake lock released');
+        });
+    } catch (err) {
+        console.error(`${err.name}, ${err.message}`);
+    }
+};
+
+requestWakeLock();
+
 
