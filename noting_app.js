@@ -14,17 +14,27 @@ let label_to_button = {}
 
 // Update the number of daily labels
 function updateLabelCount() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    todays_notes = notes.filter(label => {
-        const labelDate = new Date(label.startTime);
-        labelDate.setHours(0, 0, 0, 0);
-        return labelDate.getTime() === today.getTime();
-    });
+    const stats = [];
 
-    document.getElementById('labelCount').textContent = todays_notes.length;
+    for (let i=0; i<10; i++) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        date.setHours(0, 0, 0, 0);
+
+        const count = notes.filter(label => {
+            const labelDate = new Date(label.startTime);
+            labelDate.setHours(0, 0, 0, 0);
+            return labelDate.getTime() === date.getTime();
+        }).length;
+
+        stats.push({ date: date.toLocaleDateString(), count: count });
+    }
+
+    const statsContainer = document.getElementById('stats_container');
+    statsContainer.innerHTML = '<table><tr><th>Date</th><th>Count</th></tr>' +
+        stats.map(stat => '<tr><td>' + stat.date + '</td><td>' + stat.count + '</td></tr>').join('') +
+        '</table>';
 }
 
 // Add a label event to the notes list
